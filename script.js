@@ -1,8 +1,12 @@
 const section1 = document.getElementById("sub_section1");
 const section2 = document.getElementById("sub_section2");
+const fullcontainer = document.querySelector(".section1");
 const originalHTML1 = section1.innerHTML;
 const originalHTML2 = section2.innerHTML;
+let isSignUpActive = false;
 function moveToSignUpHandler() {
+    isSignUpActive = true;
+
     if (window.innerWidth <= 700) {
         section1.style.transform = 'translateX(0%)';
         section2.style.transform = 'translateX(0%)';
@@ -18,6 +22,7 @@ function moveToSignUpHandler() {
         section2.style.borderBottomRightRadius = '0';
         section2.style.borderTopRightRadius = '0';
     }
+
     section2.innerHTML = `
         <div class="sub_section2">
             <div class="hello_text">Welcome Back!</div>
@@ -89,7 +94,6 @@ function moveToSignUpHandler() {
                 <input type="submit" value="SIGN UP" onclick="signup_val(event)" name="signup">
             </form>
         </div>`;
-
     const move_to_login = document.getElementById("change_to_login");
     move_to_login.addEventListener('click', () => {
         if (window.innerWidth <= 700) {
@@ -113,6 +117,27 @@ function moveToSignUpHandler() {
         new_move_to_sign_up.addEventListener("click", moveToSignUpHandler);
     });
 }
+
+window.addEventListener("resize", () => {
+    if (!isSignUpActive) return;
+
+    if (window.innerWidth <= 700) {
+        section1.style.transform = 'translateX(0%)';
+        section2.style.transform = 'translateX(0%)';
+        section2.style.borderTopLeftRadius = '0px';
+        section2.style.borderBottomLeftRadius = '10px';
+        section2.style.borderBottomRightRadius = '10px';
+        section2.style.borderTopRightRadius = '0';
+    } else {
+        section1.style.transform = 'translateX(100%)';
+        section2.style.transform = 'translateX(-100%)';
+        section2.style.borderTopLeftRadius = '10px';
+        section2.style.borderBottomLeftRadius = '10px';
+        section2.style.borderBottomRightRadius = '0';
+        section2.style.borderTopRightRadius = '0';
+    }
+});
+
 
 const move_to_sign_up = document.getElementById("change_to_signup");
 move_to_sign_up.addEventListener("click", moveToSignUpHandler);
